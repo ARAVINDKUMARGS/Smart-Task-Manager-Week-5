@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <filter id="modalShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Dimmed Backdrop -->
+  <rect width="1200" height="675" fill="#0f172a" opacity="0.6"/>
+
+  <!-- Modal Dialog Container -->
+  <g transform="translate(360, 60)" filter="url(#modalShadow)">
+    <rect width="480" height="550" rx="14" fill="#ffffff"/>
+    
+    <!-- Modal Header -->
+    <rect width="480" height="75" rx="14" fill="#ffffff"/>
+    <rect x="24" y="18" width="40" height="40" rx="10" fill="#eef2ff"/>
+    <text x="35" y="44" font-size="20">✍️</text>
+    <text x="76" y="38" font-family="Inter, sans-serif" font-size="18" font-weight="800" fill="#0f172a">Create New Task</text>
+    <text x="76" y="55" font-family="Inter, sans-serif" font-size="12" fill="#64748b">Organize your priorities, set a deadline, and boost productivity.</text>
+    <line x1="0" y1="75" x2="480" y2="75" stroke="#e2e8f0"/>
+
+    <!-- Form Inputs -->
+    <!-- Title Input -->
+    <text x="24" y="105" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Task Title <tspan fill="#ef4444">*</tspan></text>
+    <rect x="24" y="115" width="432" height="42" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+    <text x="38" y="141" font-family="Inter, sans-serif" font-size="14" fill="#0f172a">Prepare InternNova Project GitHub Repository</text>
+
+    <!-- Description Textarea -->
+    <text x="24" y="185" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Description <tspan fill="#94a3b8" font-weight="400">(Optional)</tspan></text>
+    <rect x="24" y="195" width="432" height="85" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="38" y="220" font-family="Inter, sans-serif" font-size="13" fill="#475569">Include comprehensive README, screenshots, reflection essay,</text>
+    <text x="38" y="240" font-family="Inter, sans-serif" font-size="13" fill="#475569">and verify all unit criteria for JavaScript Week 5.</text>
+    <text x="420" y="295" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8">98/500</text>
+
+    <!-- Category & Priority Row -->
+    <text x="24" y="320" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Category <tspan fill="#ef4444">*</tspan></text>
+    <rect x="24" y="330" width="206" height="42" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="38" y="356" font-family="Inter, sans-serif" font-size="13" fill="#0f172a">📚 Study</text>
+
+    <text x="250" y="320" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Priority Level <tspan fill="#ef4444">*</tspan></text>
+    <rect x="250" y="330" width="206" height="42" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="264" y="356" font-family="Inter, sans-serif" font-size="13" fill="#0f172a">🔴 High Priority</text>
+
+    <!-- Due Date Field -->
+    <text x="24" y="405" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0f172a">Due Date <tspan fill="#ef4444">*</tspan></text>
+    <rect x="24" y="415" width="432" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="38" y="441" font-family="Inter, sans-serif" font-size="13" fill="#0f172a">2026-11-12</text>
+    <text x="420" y="441" font-size="16">📅</text>
+
+    <!-- Modal Footer -->
+    <line x1="0" y1="480" x2="480" y2="480" stroke="#e2e8f0"/>
+    <rect y="480" width="480" height="70" rx="14" fill="#f8fafc"/>
+    <rect x="260" y="495" width="90" height="40" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="286" y="520" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#475569">Cancel</text>
+    <rect x="360" y="495" width="96" height="40" rx="8" fill="#4f46e5"/>
+    <text x="382" y="520" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Save Task</text>
+  </g>
+</svg>

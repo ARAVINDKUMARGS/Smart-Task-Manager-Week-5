@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <filter id="shadow6" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Dimmed Background -->
+  <rect width="1200" height="675" fill="#0f172a" opacity="0.65"/>
+
+  <!-- Delete Modal Dialog -->
+  <g transform="translate(380, 150)" filter="url(#shadow6)">
+    <rect width="440" height="260" rx="14" fill="#ffffff"/>
+    
+    <!-- Header -->
+    <rect x="24" y="24" width="44" height="44" rx="10" fill="#fef2f2"/>
+    <text x="36" y="52" font-size="20">🗑️</text>
+    <text x="80" y="44" font-family="Inter, sans-serif" font-size="18" font-weight="800" fill="#0f172a">Delete Task?</text>
+    <text x="80" y="62" font-family="Inter, sans-serif" font-size="12" fill="#64748b">Are you sure you want to permanently delete this task?</text>
+
+    <!-- Preview Box -->
+    <rect x="24" y="90" width="392" height="50" rx="8" fill="#f8fafc" stroke="#fecaca"/>
+    <rect x="24" y="90" width="4" height="50" fill="#ef4444"/>
+    <text x="40" y="120" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0f172a">"Schedule Annual Dental Checkup"</text>
+
+    <!-- Footer Actions -->
+    <line x1="0" y1="180" x2="440" y2="180" stroke="#e2e8f0"/>
+    <rect y="180" width="440" height="80" rx="14" fill="#f8fafc"/>
+    <rect x="180" y="200" width="90" height="40" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="206" y="225" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#475569">Cancel</text>
+    <rect x="282" y="200" width="134" height="40" rx="8" fill="#ef4444"/>
+    <text x="300" y="225" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Yes, Delete Task</text>
+  </g>
+
+  <!-- Floating Toast Notification with Undo -->
+  <g transform="translate(760, 560)" filter="url(#shadow6)">
+    <rect width="400" height="75" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="32" cy="38" r="16" fill="#fffbeb"/>
+    <text x="24" y="44" font-size="16">⚠️</text>
+    <text x="60" y="32" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#0f172a">Task was deleted.</text>
+    <text x="60" y="54" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="#4f46e5" text-decoration="underline">Undo Action</text>
+    <text x="365" y="42" font-family="Inter, sans-serif" font-size="18" fill="#94a3b8">×</text>
+  </g>
+</svg>

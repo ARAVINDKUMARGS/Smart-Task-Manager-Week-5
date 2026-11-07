@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Task Manager - InternNova Week 5 JavaScript Project. A professional SaaS dashboard with real-time stats, filtering, sorting, and LocalStorage persistence.">
+  <title>Smart Task Manager | SaaS Productivity Dashboard</title>
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z'/><path d='M7 7h.01'/></svg>">
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+  <!-- ================================================================= -->
+  <!-- TASK 1: APP CONTAINER & HEADER -->
+  <!-- ================================================================= -->
+  <div class="app-layout">
+    
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-logo">
+          <div class="logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 11 3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">SmartTask<span class="brand-accent">Pro</span></span>
+            <span class="brand-badge">InternNova • W5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <!-- Live Quick Status Pill -->
+        <div class="header-status-pill" id="headerStatusPill">
+          <span class="status-dot"></span>
+          <span id="headerStatusText">Loading tasks...</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Shortcuts Info Button -->
+        <button type="button" class="icon-btn" id="shortcutsBtn" title="Keyboard Shortcuts (?)" aria-label="Keyboard Shortcuts">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <path d="M12 17h.01"/>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="icon-btn theme-toggle" id="themeToggleBtn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </button>
+
+        <!-- Data Options Dropdown -->
+        <div class="dropdown-wrapper">
+          <button type="button" class="btn btn-secondary btn-sm" id="dataActionsBtn" aria-haspopup="true" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"/>
+              <circle cx="19" cy="12" r="1"/>
+              <circle cx="5" cy="12" r="1"/>
+            </svg>
+            <span>Data</span>
+          </button>
+          <div class="dropdown-menu" id="dataDropdownMenu">
+            <button type="button" class="dropdown-item" id="exportDataBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export JSON Backup
+            </button>
+            <label class="dropdown-item file-upload-label" for="importJsonInput">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import JSON Backup
+              <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+            </label>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="dropdown-item text-warning" id="clearCompletedBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              Clear Completed Tasks
+            </button>
+            <button type="button" class="dropdown-item text-danger" id="resetDemoBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Reset to Sample Tasks
+            </button>
+          </div>
+        </div>
+
+        <!-- Primary CTA: Create Task -->
+        <button type="button" class="btn btn-primary" id="openCreateModalBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>New Task</span>
+          <span class="btn-kbd">N</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- ================================================================= -->
+      <!-- TASK 5: DASHBOARD STATISTICS & PROGRESS BAR -->
+      <!-- ================================================================= -->
+      <section class="dashboard-analytics" aria-label="Dashboard Statistics">
+        <div class="metrics-grid">
+          
+          <!-- Metric Card 1: Total Tasks -->
+          <div class="metric-card" id="metricCardTotal">
+            <div class="metric-icon bg-indigo-subtle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Total Tasks</span>
+              <h2 class="metric-value" id="statTotalTasks">0</h2>
+              <span class="metric-subtext">Overall tracked</span>
+            </div>
+          </div>
+
+          <!-- Metric Card 2: Pending Tasks -->
+          <div class="metric-card" id="metricCardPending">
+            <div class="metric-icon bg-amber-subtle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">In Progress</span>
+              <h2 class="metric-value" id="statPendingTasks">0</h2>
+              <span class="metric-subtext">Awaiting completion</span>
+            </div>
+          </div>
+
+          <!-- Metric Card 3: Completed Tasks -->
+          <div class="metric-card" id="metricCardCompleted">
+            <div class="metric-icon bg-emerald-subtle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Completed</span>
+              <h2 class="metric-value" id="statCompletedTasks">0</h2>
+              <span class="metric-subtext">Tasks resolved</span>
+            </div>
+          </div>
+
+          <!-- Metric Card 4: Overdue Tasks -->
+          <div class="metric-card" id="metricCardOverdue">
+            <div class="metric-icon bg-rose-subtle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Overdue</span>
+              <h2 class="metric-value text-danger" id="statOverdueTasks">0</h2>
+              <span class="metric-subtext">Action required</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Productivity Progress Section -->
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title-group">
+              <span class="progress-title">Overall Productivity Goal</span>
+              <span class="progress-quote" id="progressMotivationalQuote">Keep going, great things take effort!</span>
+            </div>
+            <div class="progress-stats">
+              <span class="progress-percent" id="statCompletionPercentage">0%</span>
+            </div>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBarTrack">
+            <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+          </div>
+          <div class="category-breakdown-chips" id="categoryBreakdownChips">
+            <!-- Dynamically populated category chips -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TASK 4: SEARCH, FILTER, AND SORT CONTROLS -->
+      <!-- ================================================================= -->
+      <section class="task-controls-section" aria-label="Task Controls and Filters">
+        
+        <!-- Search and Quick Status Filter Bar -->
+        <div class="controls-top-row">
+          
+          <!-- Live Instant Search Bar -->
+          <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input 
+              type="text" 
+              id="taskSearchInput" 
+              class="search-input" 
+              placeholder="Search tasks by title, description, or tag... (Press '/' to focus)" 
+              autocomplete="off"
+            >
+            <button type="button" class="search-clear-btn" id="searchClearBtn" aria-label="Clear Search" title="Clear Search">
+              &times;
+            </button>
+            <span class="search-kbd-hint">/</span>
+          </div>
+
+          <!-- Status Segmented Filter Tabs -->
+          <div class="status-tabs" role="tablist" aria-label="Filter by Status">
+            <button type="button" class="status-tab active" data-status="all" role="tab" aria-selected="true">
+              All <span class="tab-badge" id="tabCountAll">0</span>
+            </button>
+            <button type="button" class="status-tab" data-status="pending" role="tab" aria-selected="false">
+              Pending <span class="tab-badge" id="tabCountPending">0</span>
+            </button>
+            <button type="button" class="status-tab" data-status="completed" role="tab" aria-selected="false">
+              Completed <span class="tab-badge" id="tabCountCompleted">0</span>
+            </button>
+            <button type="button" class="status-tab" data-status="overdue" role="tab" aria-selected="false">
+              Overdue <span class="tab-badge badge-danger" id="tabCountOverdue">0</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Secondary Filter & Sort Controls Row -->
+        <div class="controls-bottom-row">
+          
+          <div class="filters-group">
+            <!-- Filter by Category -->
+            <div class="select-wrapper">
+              <label for="filterCategory" class="sr-only">Filter by Category</label>
+              <select id="filterCategory" class="custom-select">
+                <option value="all">📁 All Categories</option>
+                <option value="Work">💼 Work</option>
+                <option value="Personal">🏠 Personal</option>
+                <option value="Study">📚 Study</option>
+                <option value="Finance">💰 Finance</option>
+                <option value="Health">🧘 Health</option>
+              </select>
+            </div>
+
+            <!-- Filter by Priority -->
+            <div class="select-wrapper">
+              <label for="filterPriority" class="sr-only">Filter by Priority</label>
+              <select id="filterPriority" class="custom-select">
+                <option value="all">⚡ All Priorities</option>
+                <option value="High">🔴 High Priority</option>
+                <option value="Medium">🟡 Medium Priority</option>
+                <option value="Low">🟢 Low Priority</option>
+              </select>
+            </div>
+
+            <!-- Sort By Selector -->
+            <div class="select-wrapper">
+              <label for="sortBySelect" class="sr-only">Sort Tasks By</label>
+              <select id="sortBySelect" class="custom-select">
+                <option value="dueDateAsc">📅 Due Date: Earliest First</option>
+                <option value="dueDateDesc">📅 Due Date: Latest First</option>
+                <option value="priorityDesc">⚡ Priority: High to Low</option>
+                <option value="priorityAsc">⚡ Priority: Low to High</option>
+                <option value="createdDesc">🕒 Created: Newest First</option>
+                <option value="createdAsc">🕒 Created: Oldest First</option>
+                <option value="titleAsc">🔤 Alphabetical (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Active Filter Status & Reset Action -->
+          <div class="filter-actions-group">
+            <span class="active-filter-indicator" id="activeFilterIndicator">
+              Showing <strong id="visibleTasksCount">0</strong> tasks
+            </span>
+            <button type="button" class="btn btn-ghost btn-sm" id="resetFiltersBtn" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+              </svg>
+              Reset Filters
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TASK 2 & 3: TASK LIST & TASK CARDS DISPLAY -->
+      <!-- ================================================================= -->
+      <section class="task-list-section" aria-label="Task List">
+        
+        <!-- Section Header with Quick Actions -->
+        <div class="task-list-header">
+          <div class="list-title-wrap">
+            <h3 class="section-title">Your Tasks</h3>
+            <span class="task-count-pill" id="taskSectionCountPill">0 Total</span>
+          </div>
+          <div class="list-layout-toggles">
+            <span class="keyboard-tip-inline">Tip: Click checkbox to mark done • Click task card to expand</span>
+          </div>
+        </div>
+
+        <!-- Task List Container (Dynamic DOM injection) -->
+        <div class="task-cards-grid" id="taskCardsContainer" role="region" aria-live="polite">
+          <!-- Populated dynamically via script.js -->
+        </div>
+
+        <!-- Empty State View (Visible when 0 matching tasks) -->
+        <div class="empty-state" id="emptyStateContainer" style="display: none;">
+          <div class="empty-state-illustration">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h4 class="empty-state-title" id="emptyStateTitle">No tasks found</h4>
+          <p class="empty-state-desc" id="emptyStateDesc">No tasks match your current search or active filter criteria.</p>
+          <div class="empty-state-actions">
+            <button type="button" class="btn btn-secondary" id="emptyStateResetFiltersBtn">Clear Filters</button>
+            <button type="button" class="btn btn-primary" id="emptyStateNewTaskBtn">+ Create New Task</button>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p><strong>Smart Task Manager</strong> • InternNova Week 5 JavaScript Project (100 Marks)</p>
+        <p class="footer-subtext">Engineered with Vanilla HTML5, CSS3 & Modern ES6+ JavaScript. LocalStorage Enabled.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 1: ADD / EDIT TASK MODAL -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="taskModalBackdrop" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+      
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge" id="modalIconBadge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title" id="modalTitle">Create New Task</h3>
+            <p class="modal-subtitle">Organize your priorities, set a deadline, and boost productivity.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeTaskModalBtn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <!-- Task Form -->
+      <form id="taskForm" novalidate>
+        <!-- Hidden input to store task ID when editing -->
+        <input type="hidden" id="taskIdInput" value="">
+
+        <div class="modal-body">
+          
+          <!-- Task Title Field -->
+          <div class="form-group">
+            <label for="taskTitleInput" class="form-label required">Task Title</label>
+            <input 
+              type="text" 
+              id="taskTitleInput" 
+              class="form-input" 
+              placeholder="e.g., Complete Week 5 JavaScript Submission" 
+              maxlength="100" 
+              required
+            >
+            <div class="form-feedback" id="titleFeedback">Title is required (min 3 characters).</div>
+          </div>
+
+          <!-- Task Description Field -->
+          <div class="form-group">
+            <label for="taskDescInput" class="form-label">Description <span class="label-optional">(Optional)</span></label>
+            <textarea 
+              id="taskDescInput" 
+              class="form-textarea" 
+              rows="3" 
+              placeholder="Add key objectives, links, or notes for this task..." 
+              maxlength="500"
+            ></textarea>
+            <div class="char-counter"><span id="descCharCount">0</span>/500</div>
+          </div>
+
+          <!-- Category and Priority Row -->
+          <div class="form-row">
+            
+            <!-- Category Selection -->
+            <div class="form-group col-half">
+              <label for="taskCategoryInput" class="form-label required">Category</label>
+              <select id="taskCategoryInput" class="form-select" required>
+                <option value="Work">💼 Work</option>
+                <option value="Personal">🏠 Personal</option>
+                <option value="Study">📚 Study</option>
+                <option value="Finance">💰 Finance</option>
+                <option value="Health">🧘 Health</option>
+              </select>
+            </div>
+
+            <!-- Priority Selection -->
+            <div class="form-group col-half">
+              <label for="taskPriorityInput" class="form-label required">Priority Level</label>
+              <select id="taskPriorityInput" class="form-select" required>
+                <option value="Low">🟢 Low Priority</option>
+                <option value="Medium" selected>🟡 Medium Priority</option>
+                <option value="High">🔴 High Priority</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Due Date Field -->
+          <div class="form-group">
+            <label for="taskDueDateInput" class="form-label required">Due Date</label>
+            <input 
+              type="date" 
+              id="taskDueDateInput" 
+              class="form-input" 
+              required
+            >
+            <div class="form-feedback" id="dueDateFeedback">Please select a valid due date.</div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelTaskModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTaskSubmitBtn">
+            <span id="saveBtnText">Save Task</span>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 2: DELETE CONFIRMATION MODAL -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="deleteConfirmModal" aria-hidden="true">
+    <div class="modal-container modal-sm" role="alertdialog" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalDesc" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-icon-badge bg-rose-subtle text-danger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>
+          </svg>
+        </div>
+        <h3 class="modal-title" id="deleteModalTitle">Delete Task</h3>
+        <button type="button" class="modal-close-btn" id="closeDeleteModalBtn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteModalDesc">Are you sure you want to permanently delete this task?</p>
+        <div class="delete-task-preview" id="deleteTaskPreviewTitle">Task Title Preview</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancelDeleteModalBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteTaskBtn">Yes, Delete Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 3: KEYBOARD SHORTCUTS MODAL -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="shortcutsModal" aria-hidden="true">
+    <div class="modal-container modal-sm" role="dialog" aria-labelledby="shortcutsModalTitle" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-icon-badge bg-indigo-subtle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/>
+          </svg>
+        </div>
+        <h3 class="modal-title" id="shortcutsModalTitle">Keyboard Shortcuts</h3>
+        <button type="button" class="modal-close-btn" id="closeShortcutsModalBtn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul class="shortcuts-list">
+          <li>
+            <span>Create New Task</span>
+            <span class="shortcut-key">N</span>
+          </li>
+          <li>
+            <span>Focus Search Bar</span>
+            <span class="shortcut-key">/</span>
+          </li>
+          <li>
+            <span>Close Active Modal</span>
+            <span class="shortcut-key">Esc</span>
+          </li>
+          <li>
+            <span>Show Keyboard Shortcuts</span>
+            <span class="shortcut-key">?</span>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" id="gotItShortcutsBtn">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- TASK 6: TOAST NOTIFICATION CONTAINER -->
+  <!-- ================================================================= -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true">
+    <!-- Populated dynamically via showToast() in script.js -->
+  </div>
+
+  <!-- Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGrad)"/>
+
+  <!-- Top App Header -->
+  <rect x="0" y="0" width="1200" height="70" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="40" y="18" width="34" height="34" rx="8" fill="url(#brandGrad)"/>
+  <path d="M50 35 L55 40 L64 28" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  <text x="86" y="38" font-family="Inter, sans-serif" font-weight="800" font-size="20" fill="#0f172a">SmartTask<tspan fill="#4f46e5">Pro</tspan></text>
+  <rect x="220" y="24" width="115" height="22" rx="11" fill="#f1f5f9"/>
+  <text x="232" y="39" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#64748b">INTERNNOVA • W5</text>
+
+  <!-- Header Right Controls -->
+  <rect x="940" y="18" width="100" height="34" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="965" y="40" font-family="Inter, sans-serif" font-weight="600" font-size="13" fill="#334155">Data ▾</text>
+  <rect x="1055" y="18" width="105" height="34" rx="6" fill="#4f46e5"/>
+  <text x="1075" y="40" font-family="Inter, sans-serif" font-weight="600" font-size="13" fill="#ffffff">+ New Task</text>
+
+  <!-- Metric KPI Cards Grid -->
+  <g transform="translate(40, 95)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="260" height="100" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <circle cx="45" cy="50" r="24" fill="#eef2ff"/>
+    <text x="35" y="56" font-size="20">📋</text>
+    <text x="85" y="38" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#64748b">TOTAL TASKS</text>
+    <text x="85" y="72" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#0f172a">5</text>
+
+    <!-- Card 2 -->
+    <rect x="286" y="0" width="260" height="100" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <circle cx="331" cy="50" r="24" fill="#fffbeb"/>
+    <text x="321" y="56" font-size="20">⏳</text>
+    <text x="371" y="38" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#d97706">IN PROGRESS</text>
+    <text x="371" y="72" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#0f172a">3</text>
+
+    <!-- Card 3 -->
+    <rect x="572" y="0" width="260" height="100" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <circle cx="617" cy="50" r="24" fill="#ecfdf5"/>
+    <text x="607" y="56" font-size="20">✅</text>
+    <text x="657" y="38" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#059669">COMPLETED</text>
+    <text x="657" y="72" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#0f172a">2</text>
+
+    <!-- Card 4 -->
+    <rect x="858" y="0" width="262" height="100" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <circle cx="903" cy="50" r="24" fill="#fef2f2"/>
+    <text x="893" y="56" font-size="20">⚠️</text>
+    <text x="943" y="38" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#dc2626">OVERDUE</text>
+    <text x="943" y="72" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#dc2626">1</text>
+  </g>
+
+  <!-- Progress Bar Section -->
+  <g transform="translate(40, 215)">
+    <rect x="0" y="0" width="1120" height="75" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <text x="24" y="32" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#0f172a">Overall Productivity Goal</text>
+    <text x="24" y="52" font-family="Inter, sans-serif" font-size="12" fill="#64748b">💪 Halfway there! Keep up the great momentum!</text>
+    <text x="1050" y="44" font-family="Inter, sans-serif" font-size="24" font-weight="800" fill="#4f46e5">40%</text>
+    <rect x="24" y="60" width="1072" height="8" rx="4" fill="#f1f5f9"/>
+    <rect x="24" y="60" width="428" height="8" rx="4" fill="#4f46e5"/>
+  </g>
+
+  <!-- Task Card 1 Preview -->
+  <g transform="translate(40, 310)">
+    <rect x="0" y="0" width="1120" height="90" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <rect x="24" y="34" width="22" height="22" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="64" y="38" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">Complete InternNova Week 5 JavaScript Project</text>
+    <text x="64" y="58" font-family="Inter, sans-serif" font-size="13" fill="#64748b">Implement full CRUD, filtering, statistics, and LocalStorage persistence with clean code documentation.</text>
+    <rect x="64" y="66" width="95" height="18" rx="9" fill="#fef2f2"/>
+    <text x="76" y="79" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#dc2626">● High Priority</text>
+    <rect x="168" y="66" width="70" height="18" rx="9" fill="#f0fdf4"/>
+    <text x="178" y="79" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#15803d">📚 Study</text>
+    <rect x="246" y="66" width="110" height="18" rx="9" fill="#f1f5f9"/>
+    <text x="256" y="79" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#475569">⏳ Due Tomorrow</text>
+  </g>
+
+  <!-- Task Card 2 (Completed) Preview -->
+  <g transform="translate(40, 415)">
+    <rect x="0" y="0" width="1120" height="80" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+    <rect x="24" y="28" width="22" height="22" rx="6" fill="#10b981"/>
+    <path d="M30 39 L34 43 L40 34" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="64" y="36" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#94a3b8" text-decoration="line-through">Review JavaScript Array Methods (map, filter, reduce)</text>
+    <rect x="64" y="50" width="85" height="18" rx="9" fill="#ecfdf5"/>
+    <text x="74" y="63" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#059669">✓ Completed</text>
+  </g>
+
+  <!-- Task Card 3 (Overdue Alert) Preview -->
+  <g transform="translate(40, 510)">
+    <rect x="0" y="0" width="1120" height="80" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="6" height="80" rx="3" fill="#ef4444"/>
+    <rect x="24" y="28" width="22" height="22" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="64" y="36" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a">Schedule Annual Dental Checkup</text>
+    <rect x="64" y="50" width="135" height="18" rx="9" fill="#fef2f2"/>
+    <text x="74" y="63" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#dc2626">⚠️ Overdue by 2 days</text>
+  </g>
+
+  <!-- Banner Watermark -->
+  <rect x="380" y="625" width="440" height="34" rx="17" fill="#0f172a" opacity="0.9"/>
+  <text x="600" y="647" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">✨ InternNova Week 5 JavaScript Project • 100 Marks Milestone</text>
+</svg>
